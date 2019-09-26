@@ -1,0 +1,51 @@
+<html>
+<head>
+
+</head>
+  <body>
+  <fieldset style = "width:400px;">
+  <legend> 입력 </legend>
+
+    <form action="/create_process" method="post" name = "join">
+      <div>
+      <select name="area" style="width:100px;height:40px;">
+        <option value="서울" selected="selected">서울</option>
+        <option value="대전">대전</option>
+        <option value="대구">대구</option>
+        <option value="경남">경남</option>
+      </select>
+
+
+
+      <script language="javascript">
+      function select_check(){
+      i=document.join.tl.selectedIndex // 선택항목의 인덱스 번호
+      var choose=document.join.tl.options[i].value // 선택항목 value
+      document.join.mid.value=choose
+      }
+      </script>
+      <select style="width:100px;height:40px;" name="tl" onChange="select_check()">
+
+        <option value="선택" selected="selected">선택</option>
+        <option value="T/L 1">T/L 1</option>
+        <option value="T/L 2">T/L 2</option>
+        <option value="T/L 3">T/L 3</option>
+        <option value="T/L 4">T/L 4</option>
+      </select>
+      </div>
+
+
+      <input type="hidden" name="mid" value="">
+
+      <div> Tel(ex: 010-1234-5678) :</div>
+      <input type="tel" id="usertel"
+      pattern="\d{3}-\d{3,4}-\d{4}">
+
+      <div>이름 </div>
+      <input type="text" name ="name">
+
+  <div><input type="submit" value="전송"></div>
+</form>
+</fieldset>
+</body>
+</html>
