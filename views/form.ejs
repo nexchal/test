@@ -24,8 +24,8 @@
       document.join.mid.value=choose
       }
       </script>
-      <select style="width:100px;height:40px;" name="tl" onChange="select_check()">
 
+      <select style="width:100px;height:40px;" name="tl" onChange="select_check()">
         <option value="선택" selected="selected">선택</option>
         <option value="T/L 1">T/L 1</option>
         <option value="T/L 2">T/L 2</option>
@@ -35,14 +35,19 @@
       </div>
 
 
-      <input type="hidden" name="mid" value="">
+
 
       <div> Tel(ex: 010-1234-5678) :</div>
-      <input type="tel" id="usertel"
+      <input type="tel" id="usertel" name = "tel"
       pattern="\d{3}-\d{3,4}-\d{4}">
 
       <div>이름 </div>
       <input type="text" name ="name">
+
+      <div>
+      확인
+      <input type="text" name="mid" value="" style = " width: 50px;">
+      <div>
 
   <div><input type="submit" value="전송"></div>
 </form>
