@@ -1,0 +1,30 @@
+<html>
+<head>
+
+</head>
+  <body>
+
+<script language="javascript">
+function mailcheck(){
+i=document.join.mail3.selectedIndex // 선택항목의 인덱스 번호
+var mail=document.join.mail3.options[i].value // 선택항목 value
+document.join.mail2.value=mail
+}
+</script>
+
+<form name="join" action="join_post.php" method="post">
+<select name="mail3" onChange="mailcheck()">
+<option selected>직접입력</option>
+<option value=hanmail.net>hanmail.net</option>
+<option value=paran.com>paran.com</option>
+<option value=naver.com>naver.com</option>
+</select>
+<input type="text" name="mail2">
+
+</form>
+
+
+
+
+</body>
+</html>
