@@ -18,7 +18,7 @@ module.exports = {
       oracledb.getConnection(dbConfig,
   		  function(err, conn)
   		{
-        conn.execute(`SELECT * FROM TEST_JUNGWOOK2`, function (err, result)
+        conn.execute(`SELECT area,tl,tel,name,TO_CHAR(time,'YY/MM/DD hh:mi'),id FROM TEST_JUNGWOOK2`, function (err, result)
         {
 
           if (err)
@@ -31,14 +31,17 @@ module.exports = {
 
           for(var i=0; i < list.length; ++i)
           {
-            data += `<tr>
+            data += `
+
+						<tr>
                   <td>${list[i][0]}</td>
                   <td>${list[i][1]}</td>
                   <td>${list[i][2]}</td>
                   <td>${list[i][3]}</td>
                   <td>${list[i][4]}</td>
                   <td>${list[i][5]}</td>
-                  </tr>`;
+									<td><input type ="checkbox"> </td>
+            </tr>`;
           }
 
 					var name = '';
@@ -52,7 +55,7 @@ module.exports = {
 								`
 					}
 					console.log(name);
-
+					name = name + `<th>box</th>`;
           var first_data = ejs.render(src_body,
           {
             dbname: name,
