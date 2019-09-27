@@ -18,7 +18,7 @@ module.exports = {
       oracledb.getConnection(dbConfig,
   		  function(err, conn)
   		{
-        conn.execute(`SELECT area,tl,tel,name,TO_CHAR(time,'YY/MM/DD hh:mi'),id FROM TEST_JUNGWOOK2`, function (err, result)
+        conn.execute(`SELECT area,tl,tel,name,TO_CHAR(time,'YY/MM/DD hh:mi') as time,id FROM TEST_JUNGWOOK2`, function (err, result)
         {
 
           if (err)
