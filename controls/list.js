@@ -8,7 +8,7 @@ module.exports = {
 			var dbConfig = require('./../config/dbconfig2.js');
 			var src = fs.readFileSync(__dirname+'/../views/frame_main.ejs', 'utf8');
 			var src_top = fs.readFileSync(__dirname+'/../views/frame_top.ejs', 'utf8');
-			var src_left = fs.readFileSync(__dirname+'/../views/frame_left.ejs', 'utf8');
+			//var src_left = fs.readFileSync(__dirname+'/../views/frame_left.ejs', 'utf8');
 			var src_body = fs.readFileSync(__dirname+'/../views/phonelist.ejs', 'utf8');
       var src_bottom = fs.readFileSync(__dirname+'/../views/frame_bottom.ejs', 'utf8');
       var list;
@@ -47,7 +47,7 @@ module.exports = {
            page = ejs.render(src,
           {
             frame_top: src_top,
-            frame_left: src_left,
+            //frame_left: src_left,
             frame_body: first_data,
             frame_bottom: src_bottom
           });
