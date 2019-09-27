@@ -3,11 +3,13 @@ var app = express()
 var fs = require('fs');
 var ejs = require('ejs');
 
-
+var listrouter = require('./models/listrouter.js');
 var cbrouter = require('./models/cbrouter.js');
 var page;
+
 app.set('view engine','ejs'); // ejs사용
 app.use('/',cbrouter);
+app.use('/',listrouter);
 app.use(express.static('public'));  // 정적파일 사용하기
 
 
