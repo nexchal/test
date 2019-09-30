@@ -41,12 +41,12 @@ router.post('/create_process', function(req, res) //index
 
     oracledb.getConnection(dbConfig,function(err, conn)
     {
-      conn.execute(`insert into test_userinfo VALUES ('${emp_no}','${name}','${tel}','${area1}','${area2}','${area3}')`,function (err, topics)
+      conn.execute(`insert into test_userinfo VALUES ('${emp_no}','${name}','${tel}','${area1}','${area2}','${area3}',tmp_seq.NEXTVAL)`,function (err, topics)
       {
          console.log(topics);
       });
-
-      conn.execute(`insert into TEST_ERR_TYPE VALUES ('${re}',sysdate,'${emp_no}')`,function (err, qq)
+      
+      conn.execute(`insert into TEST_ERR_TYPE VALUES ('${re}',sysdate,'(select id from test_userinfo where emp_tel = '${tel}')')`,function (err, qq)
       {
          console.log(qq);
       });
