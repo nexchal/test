@@ -25,20 +25,33 @@ router.post('/create_process', function(req, res) //index
 {
   var post = req.body;
 
-  var tl = post.tl;
-  var area = post.area;
-  var tel = post.tel;
+
+  var area1 = post.subject;
+  var area2 = post.contents;
+  var area3 = post.components;
+
   var name = post.name;
+  var tel =  post.tel;
+  var emp_no = post.emp_no;
+  var re = post.re;
 
-  console.log(area,tl,tel,name);
+//tmp_seq.NEXTVAL
 
-  oracledb.getConnection(dbConfig,function(err, conn)
-  {
-    conn.execute(`insert into TEST_JUNGWOOK2 VALUES ('${area}','${tl}','${tel}','${name}'
-    ,sysdate,tmp_seq.NEXTVAL)`,function (err, topics)
+  console.log(area1,area2,area3,name,tel,emp_no,re);
+
+    oracledb.getConnection(dbConfig,function(err, conn)
     {
-       console.log(topics);
-    });
+      conn.execute(`insert into test_userinfo VALUES ('${emp_no}','${name}','${tel}','${area1}','${area2}','${area3}')`,function (err, topics)
+      {
+         console.log(topics);
+      });
+
+      conn.execute(`insert into TEST_ERR_TYPE VALUES ('${re}',sysdate,'${emp_no}')`,function (err, qq)
+      {
+         console.log(qq);
+      });
+
+
     res.writeHead(302, {Location: `/`});
     res.end();
 

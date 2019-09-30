@@ -2,61 +2,134 @@
 <head>
 
 </head>
-  <body>
+  <body onLoad="initForm(document.form)">
   <fieldset style = "width:400px;">
   <legend> 입력 </legend>
 
-    <form action="/create_process" method="post" name = "join">
-      <div>
-      <select name="area" style="width:100px;height:40px;">
-        <option value="서울" selected="selected">서울</option>
-        <option value="대전">대전</option>
-        <option value="대구">대구</option>
-        <option value="경남">경남</option>
-      </select>
+  <form action="/create_process" method="post" name = "form">
+
+
+  <script language="javascript">
+  <!--
+
+   function Category(value, text) {
+    this.value = value;
+    this.text = text;
+    this.length = 0;
+   }
+
+   function addCategory(category, value, text) {
+    category[category.length] = new Category(value, text);
+    category.length++;
+   }
+
+   var category = new Category();
+
+   addCategory(category,"NULL", "선택");
+    addCategory(category[0], "", "");
+
+   addCategory(category, "광주", "광주");
+
+     addCategory(category[1], "북구", "북구");
+     addCategory(category[1], "남구", "남구");
+     addCategory(category[1], "동구", "동구");
+     addCategory(category[1], "서구", "서구");
+     addCategory(category[1], "중구", "중구");
+
+      addCategory(category[1][0], "북쪽변전소", "북쪽변전소");
+  	  addCategory(category[1][1], "남쪽변전소", "남쪽변전소");
+  	  addCategory(category[1][2], "동쪽변전소", "동쪽변전소");
+  	  addCategory(category[1][3], "서쪽변전소", "서쪽변전소");
+  	  addCategory(category[1][4], "중앙변전소", "중앙변전소");
+
+
+     addCategory(category, "대구", "대구");
+
+     addCategory(category[2], "북구", "북구");
+     addCategory(category[2], "남구", "남구");
+     addCategory(category[2], "동구", "동구");
+     addCategory(category[2], "서구", "서구");
+     addCategory(category[2], "중구", "중구");
+
+    addCategory(category[2][0], "북쪽변전소", "북쪽변전소");
+    addCategory(category[2][1], "남쪽변전소", "남쪽변전소");
+    addCategory(category[2][2], "동쪽변전소", "동쪽변전소");
+    addCategory(category[2][3], "서쪽변전소", "서쪽변전소");
+    addCategory(category[2][4], "중앙변전소", "중앙변전소");
 
 
 
-      <script language="javascript">
-      function select_check(){
-      i=document.join.tl.selectedIndex // 선택항목의 인덱스 번호
-      var choose=document.join.tl.options[i].value // 선택항목 value
-      document.join.mid.value=choose
-      }
-      </script>
+   function initForm(form) {
+    form.subject.length = category.length;
 
-      <select style="width:100px;height:40px;" name="tl" onChange="select_check()">
-        <option value="선택" selected="selected">선택</option>
-        <option value="T/L 1">T/L 1</option>
-        <option value="T/L 2">T/L 2</option>
-        <option value="T/L 3">T/L 3</option>
-        <option value="T/L 4">T/L 4</option>
-      </select>
+    for (i = 0; i < category.length; i++){
+     form.subject[i].value = category[i].value;
+     form.subject[i].text = category[i].text;
+     form.subject.selectedIndex = 0;
+     form.contents.selectedIndex = 0;
+    }
 
-      <select style="width:100px;height:40px;" name="mtr" onChange="">
-        <option value="선택" selected="selected">선택</option>
-        <option value="MTR 1">MTR 1</option>
-        <option value="MTR 2">MTR 2</option>
-        <option value="MTR 3">MTR 3</option>
-        <option value="MTR 4">MTR 4</option>
-      </select>
+    change_subject(form);
+   }
 
-      </div>
+   function change_subject(form) {
+    var i = form.subject.selectedIndex;
+    form.contents.length = category[i].length;
+
+    for (j = 0; j < form.contents.length; j++){
+     form.contents[j].value = category[i][j].value;
+     form.contents[j].text = category[i][j].text;
+     form.contents.selectedIndex = 0;
+    }
+    change_contents(form);
+   }
+
+   function change_contents(form) {
+    var i = form.subject.selectedIndex
+    var j = form.contents.selectedIndex;
+
+    form.components.length = category[i][j].length;
+
+    for (k = 0; k < form.components.length; k++){
+     form.components[k].value = category[i][j][k].value;
+     form.components[k].text = category[i][j][k].text;
+     form.components.selectedIndex = 0;
+    }
+   }
+
+   function change_compo(){
+    var l = document.form.components.selectedIndex;
+    alert("value >>"+document.form.components[l].value);
+    alert("text >>"+document.form.components[l].text);
+   }
 
 
 
 
-      <div> Tel(ex: 010-1234-5678) :</div>
-      <input type="tel" id="usertel" name = "tel"
-      pattern="\d{3}-\d{3,4}-\d{4}">
+  // -->
+  </SCRIPT>
 
-      <div>이름 </div>
-      <input type="text" name ="name">
+  <select name="subject" onchange="change_subject(this.form)"style="width:100px;height:40px;"></select>
+  <select name="contents" onchange="change_contents(this.form)"style="width:100px;height:40px;"></select>
+  <select name="components" onChange="change_compo();"style="width:100px;height:40px;"></select>
+  <br>
+  <div> Tel(ex: 010-1234-5678) :</div>
+  <input type="tel" id="usertel" name = "tel"
+  pattern="\d{3}-\d{3,4}-\d{4}">
 
-      <div>
-      확인
-      <input type="text" name="mid" value="" style = " width: 50px;">
-      <div><br>
+  <div>이름 &nbsp &nbsp &nbsp 사번</div>
+  <input type="text" name ="name" style =" width:60px;">
+  <input type="text" name ="emp_no" style =" width:100px;">
+
+  <br><br>
+  ERROR
+  <select name="re" style="width:100px;height:40px;">
+    <option value="과식" selected="selected">과식</option>
+    <option value="피로">피로</option>
+    <option value="탈진">탈진</option>
+    <option value="게임">게임</option>
+  </select><br><br>
+
 
   <div><input type="submit" value="전송"> <input type="reset" value="초기화"></div>
 </form>
