@@ -13,12 +13,6 @@ div.top {
 	text-align: center;
 }
 
-.wrap2 {
-	position: absolute;
-  display: inline;
-	text-align: center;
-
-}
 
 a {
 	-webkit-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
@@ -53,4 +47,36 @@ a.button2 {
 a.button2:hover {
 	color: gray;
 	box-shadow: gray 0 80px 0px 2px inset;
+}
+
+.wrap2 {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.button3 {
+  width: 140px;
+  height: 45px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 2.5px;
+  font-weight: 500;
+  color: #000;
+  background-color: #fff;
+  border: none;
+  border-radius: 45px;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease 0s;
+  cursor: pointer;
+  outline: none;
+  }
+
+.button3:hover {
+  background-color:rgba(77,114,222);
+  box-shadow: 0px 15px 20px rgba(77,114,222, 0.4);
+  color: #fff;
+  transform: translateY(-7px);
 }
