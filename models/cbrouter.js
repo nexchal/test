@@ -54,6 +54,7 @@ router.post('/create_process', function(req, res) //index
           if(tel == a[i])
           {
             count++;
+            break;
           }
         }
         console.log(count);
