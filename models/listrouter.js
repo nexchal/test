@@ -21,23 +21,22 @@ router.get('/page/:pageId',function(req, res)
 {
   var title = req.params.pageId;
 
-  conn.execute(`SELECT emp_name,area,area_1,area_2,id FROM test_userinfo where emp_no = '${title}'`, function (err, result)
+  conn.execute(`SELECT emp_name,area,area_1,area_2,id,emp_tel FROM test_userinfo where emp_no = '${title}'`, function (err, result)
   {
-
-    var id = result.rows[0][4];
     var name = result.rows[0][0];
     var area = result.rows[0][1];
     var area1 = result.rows[0][2];
     var area2 = result.rows[0][3];
-
-    conn.execute(`SELECT err_name,TO_CHAR(time,'YY/MM/DD hh:mi')  FROM TEST_ERR_TYPE where id = '${id}'`, function (err, ertable)
+    var id = result.rows[0][4];
+    var tel = result.rows[0][5];
+    conn.execute(`SELECT err_name,TO_CHAR(time,'YY/MM/DD hh:mi') FROM TEST_ERR_TYPE where id = '${id}' order by time asc`, function (err, ertable)
     {
       console.log(ertable.rows.length);
       console.log(ertable.rows)
       res.render('title',
       {
         id: id, name : name, area : area, area1: area1, area2: area2,
-        two: ertable.rows, length: ertable.rows.length
+        two: ertable.rows, length: ertable.rows.length, tel : tel
       });
     });
   });
@@ -49,6 +48,30 @@ router.post('/update',function(req, res)
   return page.UPDATE(req,res);
 });
 
+router.post('/delete',function(req, res)
+{
+  var post = req.body;
+  var checked_len = post.checked;
+  var checked_val = post.check;
+  var checked_val2 = new Array(" ");
+  checked_val.push(post.check);
+
+
+
+  for(var i = 0; i < checked_len; i++ )
+  {
+    conn.execute(`delete from test_userinfo where emp_tel = '${checked_val[i]}' `, function (err, result)
+    { });
+    conn.execute(`delete from test_userinfo where emp_tel = '${checked_val2[i]}' `, function (err, result)
+    { });
+  }
+      res.writeHead(302, {Location: `/`});
+      res.end();
+
+
+});
+  //res.writeHead(200);
+  //res.write("delete");
 });
 
 module.exports = router;

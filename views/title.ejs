@@ -1,16 +1,21 @@
 <html>
 <head>
+  <style>
+    h3 { display : inline; }
+  </style>
+
 </head>
 
 <body>
 
-관리자 :  <%- name %><br>
-지역 :  <%- area %>/<%- area1 %>/<%- area2 %> <br>
+담당자 : <%- name %><br>
+연락처 : <%- tel %><br>
+지역 :  <%- area %>&nbsp<%- area1 %>&nbsp<%- area2 %> <br>
 
-사유:
+고장사유/발생시간: <br>
 <% for( var j = 0 ; j < length; j++) { %>
   <% for( var i = 0 ; i < 1; i++) { %>
-  <h1> <%= two[j][i] %> </h1> <%= two[j][i+1] %> <br>
+  <h3> <%= two[j][i] %> </h3> [ <%= two[j][i+1] %> ] <br>
   <% } %>
   <% } %>
 

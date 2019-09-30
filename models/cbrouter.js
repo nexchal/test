@@ -24,8 +24,6 @@ router.get('/create', function(req, res) //index
 router.post('/create_process', function(req, res) //index
 {
   var post = req.body;
-
-
   var area1 = post.subject;
   var area2 = post.contents;
   var area3 = post.components;
