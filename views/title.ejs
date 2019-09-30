@@ -4,7 +4,15 @@
 
 <body>
 
-  <%- good %>
+관리자 :  <%- name %><br>
+지역 :  <%- area %>/<%- area1 %>/<%- area2 %> <br>
+
+사유:
+<% for( var j = 0 ; j < length; j++) { %>
+  <% for( var i = 0 ; i < 1; i++) { %>
+  <h1> <%= two[j][i] %> </h1> <%= two[j][i+1] %> <br>
+  <% } %>
+  <% } %>
 
 </body>
 </html>

@@ -21,17 +21,26 @@ router.get('/page/:pageId',function(req, res)
 {
   var title = req.params.pageId;
 
-  conn.execute(`SELECT * FROM test_userinfo where emp_no = '${title}'`, function (err, result)
+  conn.execute(`SELECT emp_name,area,area_1,area_2,id FROM test_userinfo where emp_no = '${title}'`, function (err, result)
   {
-    console.log(result);
-    res.render('title',
+
+    var id = result.rows[0][4];
+    var name = result.rows[0][0];
+    var area = result.rows[0][1];
+    var area1 = result.rows[0][2];
+    var area2 = result.rows[0][3];
+
+    conn.execute(`SELECT err_name,TO_CHAR(time,'YY/MM/DD hh:mi')  FROM TEST_ERR_TYPE where id = '${id}'`, function (err, ertable)
     {
-      good: result.rows
+      console.log(ertable.rows.length);
+      console.log(ertable.rows)
+      res.render('title',
+      {
+        id: id, name : name, area : area, area1: area1, area2: area2,
+        two: ertable.rows, length: ertable.rows.length
+      });
     });
-
   });
-
-
 });
 
 router.post('/update',function(req, res)
