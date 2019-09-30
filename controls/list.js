@@ -18,7 +18,7 @@ module.exports = {
       oracledb.getConnection(dbConfig,
   		  function(err, conn)
   		{
-        conn.execute(`SELECT area,tl,tel,name,TO_CHAR(time,'YY/MM/DD hh:mi') as time,id FROM TEST_JUNGWOOK2`, function (err, result)
+        conn.execute(`SELECT i.emp_no,i.emp_name,i.area,i.area_1,i.area_2,TO_CHAR(e.time,'YY/MM/DD hh:mi') as time,i.id FROM test_userinfo i ,TEST_ERR_TYPE e`, function (err, result)
         {
 
           if (err)
@@ -40,6 +40,7 @@ module.exports = {
                   <td>${list[i][3]}</td>
                   <td>${list[i][4]}</td>
                   <td>${list[i][5]}</td>
+									<td>${list[i][6]}</td>
 									<td><input type ="checkbox" name="check" value = "${list[i][2]}" > </td>
             </tr>`;
           }
