@@ -59,11 +59,15 @@ router.post('/create_process', function(req, res) //index
         console.log(count);
         if(count > 0 )
         {
-          console.log("이미있는 번호");
+          console.log("존재하는 번호 에러 타입 추가중");
+          conn.execute(`insert into TEST_ERR_TYPE VALUES ('${re}',sysdate,(SELECT ID FROM TEST_USERINFO WHERE EMP_TEL='${tel}'))`,function (err, qq)
+          {
+             console.log(qq);
+          });
         }
         else
         {
-          console.log("삽입중")
+          console.log("신규 유저 삽입중")
           conn.execute(`insert into test_userinfo VALUES ('${emp_no}','${name}','${tel}','${area1}','${area2}','${area3}',tmp_seq.NEXTVAL)`,function (err, topics)
           {
              console.log(topics);
