@@ -40,7 +40,7 @@ module.exports = {
                   <td>${list[i][3]}</td>
                   <td>${list[i][4]}</td>
                   <td>${list[i][5]}</td>
-									<td><input type ="checkbox"> </td>
+									<td><input type ="checkbox" name="check" value = "${list[i][2]}" > </td>
             </tr>`;
           }
 
@@ -59,8 +59,7 @@ module.exports = {
           var first_data = ejs.render(src_body,
           {
             dbname: name,
-            dbdata: data,
-						type:''
+            dbdata: data
           });
 
            page = ejs.render(src,

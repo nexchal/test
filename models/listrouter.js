@@ -12,4 +12,9 @@ router.get('/list',function(req, res) //index
   return page.HTML(req,res);
 });
 
+router.post('/update',function(req, res)
+{
+  page = require('../controls/update.js');
+  return page.UPDATE(req,res);
+});
 module.exports = router;

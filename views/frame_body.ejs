@@ -1,3 +1,42 @@
+<script>
+  function check_update()
+    {
+      var checkbox = document.getElementsByName("check");
+      console.log(checkbox);
+      var checkboxleng = checkbox.length;
+      var count = document.checked;
+      var post
+      var checked = 0;
+      var i = 0;
+      for (i=0; i<checkboxleng; i++)
+      {
+        if(checkbox[i].checked == true)
+        {
+          checked +=1;
+        }
+      }
+      document.frm.checked.value=checked;
+      if(checked == 0)
+      {
+        alert("수정할 항목이 체크되지 않았습니다.");
+      }
+      else
+      {
+        choose=confirm("선택한 항목을 수정하시겠습니까?");
+        if(choose)
+        {
+          document.frm.action = `/update`;
+          document.frm.submit();
+        }
+        else
+        {
+          return false;
+        }
+      }
+    }
+</script>
+<form name="frm">
+  <input type="hidden" name="checked" value=0>
 <table id="example">
     <thead>
           <tr>
@@ -18,6 +57,7 @@
 </table>
 <div class = "wrap2">
 <a href="/create" class="button2">추가</a>
+<input type="button" onclick="check_update()" value="수정">
 <a href="/delete" class="button2">삭제</a>
-<div>
-  <%- type %>
+</div>
+</form>
