@@ -41,16 +41,43 @@ router.post('/create_process', function(req, res) //index
 
     oracledb.getConnection(dbConfig,function(err, conn)
     {
-      conn.execute(`insert into test_userinfo VALUES ('${emp_no}','${name}','${tel}','${area1}','${area2}','${area3}')`,function (err, topics)
+      conn.execute(`select EMP_TEL from TEST_USERINFO`,function (err, result)
       {
-         console.log(topics);
-      });
+        var i;
+        var count=0;
+        var a;
+        console.log(result);
+        a = result.rows;
 
-      conn.execute(`insert into TEST_ERR_TYPE VALUES ('${re}',sysdate,'${emp_no}')`,function (err, qq)
-      {
-         console.log(qq);
+        for(i=0; i<result.rows.length; i++)
+        {
+          if(tel == a[i])
+          {
+            count++;
+          }
+        }
+        console.log(count);
+        if(count > 0 )
+        {
+          console.log("존재하는 번호 에러 타입 추가중");
+          conn.execute(`insert into TEST_ERR_TYPE VALUES ('${re}',sysdate,(SELECT ID FROM TEST_USERINFO WHERE EMP_TEL='${tel}'))`,function (err, qq)
+          {
+             console.log(qq);
+          });
+        }
+        else
+        {
+          console.log("신규 유저 삽입중")
+          conn.execute(`insert into test_userinfo VALUES ('${emp_no}','${name}','${tel}','${area1}','${area2}','${area3}',tmp_seq.NEXTVAL)`,function (err, topics)
+          {
+             console.log(topics);
+          });
+          conn.execute(`insert into TEST_ERR_TYPE VALUES ('${re}',sysdate,(SELECT ID FROM TEST_USERINFO WHERE EMP_TEL='${tel}'))`,function (err, qq)
+          {
+             console.log(qq);
+          });
+        }
       });
-
 
     res.writeHead(302, {Location: `/`});
     res.end();
