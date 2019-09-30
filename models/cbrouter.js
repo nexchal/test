@@ -18,7 +18,40 @@ router.get('/', function(req, res) //index
 
 router.get('/create', function(req, res) //index
 {
-    return res.render('form');
+  var category=`addCategory(category,"NULL", "선택");
+  addCategory(category[0], "", "");`;
+  oracledb.getConnection(dbConfig,function(err, conn,callback)
+  {
+    var i=0, j=0, k=0,r=0;
+    var count=0;
+    conn.execute(`select distinct AREA from TEST_AREA`,function (err, result)//AREA 광주,대구등
+    {
+      conn.execute(`select * from TEST_AREA`,function (err, result1)//TEST_AREA 테이블
+      {
+        for(i=0; i<result.rows.length;i++)
+        {
+          k=0;
+          count=0;
+          category+=`addCategory(category, "${result.rows[i]}", "${result.rows[i]}");`;
+          for(j=0; j<result1.rows.length; j++)
+          {//광주,대구                   광주 대구 같으면
+            if(result.rows[i] == result1.rows[j][0])
+            {
+              category+=`addCategory(category[${i+1}], "${result1.rows[j][1]}", "${result1.rows[j][1]}");`;
+              category+=`addCategory(category[${i+1}][${k}], "${result1.rows[j][2]}", "${result1.rows[j][2]}");`;
+              k++;
+            }
+          }
+        }
+        console.log(category);
+        return res.render('form',
+        {
+          categorys:category
+        });
+      });
+    });
+  });
+
 });
 
 router.post('/create_process', function(req, res) //index
