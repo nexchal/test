@@ -49,13 +49,11 @@ module.exports = {
 					for (var i = 0; i < result.metaData.length; ++i)
 					{
 						var a = result.metaData[i].name;
-						console.log(a);
 						name +=
 								`
 										<th>${result.metaData[i].name}</th>
 								`
 					}
-					console.log(name);
 					name = name + `<th>box</th>`;
           var first_data = ejs.render(src_body,
           {
