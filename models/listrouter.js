@@ -3,6 +3,7 @@ var fs = require('fs');
 var ejs = require('ejs');
 var oracledb = require('oracledb');
 var dbConfig = require('../config/dbconfig2.js');
+const axios = require('axios');
 oracledb.autoCommit = true;
 var router = express.Router();
 var page;
