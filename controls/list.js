@@ -111,11 +111,11 @@ module.exports = {
 										<th>${result.metaData[i].name}</th>
 								`;
 					}
-					for(k = 0; k < checked; k++)
+					if(checked == 1)
 					{
 						for(var j = 0; j < result.rows.length; j++)
 						{
-							if(check[k] == result.rows[j][2])//체크된 항목의 번호가 같으면
+							if(check == result.rows[j][2])//체크된 항목의 핸드폰번호가 같으면
 							{
 								console.log(check[k]);
 								console.log(result.rows[j][2]);
@@ -132,7 +132,30 @@ module.exports = {
 							}
 						}
 					}
-
+					else
+					{
+						for(k = 0; k < checked; k++)
+						{
+							for(var j = 0; j < result.rows.length; j++)
+							{
+								if(check[k] == result.rows[j][2])//체크된 항목의 번호가 같으면
+								{
+									console.log(check[k]);
+									console.log(result.rows[j][2]);
+									//데이터에 해당번호의 정보 불러오기
+									data += `
+									<tr>
+												<td><input type="text" name="EMP_NO" value="${result.rows[j][0]}"></td>
+												<td><input type="text" name="EMP_NAME" value="${result.rows[j][1]}"></td>
+												<td><input type="text" name="EMP_TEL" value="${result.rows[j][2]}"></td>
+												<td><input type="text" name="AREA" value="${result.rows[j][3]}"></td>
+												<td><input type="text" name="AREA_1" value="${result.rows[j][4]}"></td>
+												<td><input type="text" name="AREA_2" value="${result.rows[j][5]}"></td>
+									</tr>`;
+								}
+							}
+						}
+					}
 					var first_data = ejs.render(src_body,
 					{
 						dbname: name,
