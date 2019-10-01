@@ -1,12 +1,15 @@
 <html>
 <head>
+
+   <link rel="stylesheet" type="text/css" href="./../assets/css/button.css">
   <style>
     h3 { display : inline; }
   </style>
 
 </head>
-
 <body>
+<form method = "post" action = "/save">
+
 
 담당자 : <%- name %><br>
 연락처 : <%- tel %><br>
@@ -18,6 +21,25 @@
   <h3> <%= two[j][i] %> </h3> [ <%= two[j][i+1] %> ] <br>
   <% } %>
   <% } %>
+  <br>
 
+<input type = "hidden" value = '<%- title %>'  name = "title">
+<textarea name = 'tt' style = "display:none;">
+담당자 : <%- name %>
+연락처 : <%- tel %>
+지역 :  <%- area %>&nbsp<%- area1 %>&nbsp<%- area2 %>
+고장사유/발생시간:
+  <% for( var j = 0 ; j < length; j++) { %>
+  <% for( var i = 0 ; i < 1; i++) { %>
+  <%= two[j][i] %> [ <%= two[j][i+1] %> ]
+  <% } %>
+  <% } %>
+</textarea>
+
+<div>
+<input type = "submit" class = "button" value = "저장하기" onclick="alert('save')">
+<input type = "button" class = "button"  onclick="location.href='/list'" value =  "뒤로가기" >
+
+</form>
 </body>
 </html>

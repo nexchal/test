@@ -21,7 +21,8 @@ module.exports = {
       oracledb.getConnection(dbConfig,
   		  function(err, conn)
   		{
-        conn.execute(`SELECT * FROM test_userinfo`, function (err, result)
+        conn.execute(`SELECT emp_no as 사원번호,emp_name as 사원명,emp_tel as 연락처, area as 지역, area_1 as 구역,
+				 area_2 as 변전소, id FROM test_userinfo`, function (err, result)
         {
 
           if (err)
@@ -52,6 +53,7 @@ module.exports = {
 					for (var i = 0; i < result.metaData.length; ++i)
 					{
 						var a = result.metaData[i].name;
+
 						name +=
 								`
 										<th>${result.metaData[i].name}</th>
