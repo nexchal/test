@@ -48,6 +48,11 @@ router.post('/update',function(req, res)
   page = require('../controls/list.js');
   return page.UPDATE(req, res);
 })
+router.post('/update_process',function(req, res)
+{
+  page = require('../controls/list.js');
+  return page.UPDATEPROCESS(req, res);
+})
 
 
 router.post('/save',function(req, res)

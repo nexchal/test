@@ -94,6 +94,7 @@ module.exports = {
 		var name='';
 		var data='';
 		var controls=`<input type="button" class = "button3" onclick="location.href='/create'" value="추가">
+		<input type="button" class = "button3" onclick="location.href='/list'" value="목록">
 		<input type="button" class = "button3" onclick="update_process()" value="수정">
 		<input type="button" class = "button3" onclick="check_delete()" value="삭제">`;
 		var i=0, j=0, k=0;
