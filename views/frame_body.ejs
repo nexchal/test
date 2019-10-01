@@ -4,7 +4,6 @@
       var checkbox = document.getElementsByName("check");
       console.log(checkbox);
       var checkboxleng = checkbox.length;
-      var count = document.checked;
       var post
       var checked = 0;
       var i = 0;
@@ -54,11 +53,11 @@
         document.frm.checked.value=checked;
         if(checked == 0)
         {
-          alert("수정할 항목이 체크되지 않았습니다.");
+          alert("삭제할 항목이 체크되지 않았습니다.");
         }
         else
         {
-          choose=confirm("선택한 항목을 수정하시겠습니까?");
+          choose=confirm("선택한 항목을 삭제하시겠습니까?");
           if(choose)
           {
             document.frm.action = `/delete`;
@@ -78,14 +77,8 @@
           <tr>
             <%- dbname %>
           </tr>
-            <!--
-              <tr>
-                  <th>LOGICID</th>
-                  <th>LOGICTYPE</th>
-                  <th>LOGICNAME</th>
-              </tr>
-              -->
-    </thead>
+   </thead>
+
     <tbody>
             <%- dbdata %>
     </tbody>

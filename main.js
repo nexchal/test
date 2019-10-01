@@ -1,8 +1,8 @@
 var express = require('express')
-var app = express()
+var app = express();
 var fs = require('fs');
 var ejs = require('ejs');
-
+var bodyParser= require('body-parser');
 var listrouter = require('./models/listrouter.js');
 var cbrouter = require('./models/cbrouter.js');
 var page;

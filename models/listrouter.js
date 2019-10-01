@@ -44,9 +44,9 @@ router.get('/page/:pageId',function(req, res)
 
 router.post('/update',function(req, res)
 {
-  page = require('../controls/update.js');
-  return page.UPDATE(req,res);
-});
+  page = require('../controls/list.js');
+  return page.UPDATE(req, res);
+})
 
 router.post('/delete',function(req, res)
 {
@@ -77,5 +77,6 @@ router.post('/delete',function(req, res)
   //res.writeHead(200);
   //res.write("delete");
 });
+
 
 module.exports = router;
