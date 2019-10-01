@@ -16,7 +16,9 @@ module.exports = {
       var src_bottom = fs.readFileSync(__dirname+'/../views/frame_bottom.ejs', 'utf8');
       var list;
       var page;
-
+			var controls=`<input type="button" class = "button3" onclick="location.href='/create'" value="추가">
+			<input type="button" class = "button3" onclick="check_update()" value="수정">
+			<input type="button" class = "button3" onclick="check_delete()" value="삭제">`;
       var data='';
       oracledb.getConnection(dbConfig,
   		  function(err, conn)
@@ -63,7 +65,8 @@ module.exports = {
           var first_data = ejs.render(src_body,
           {
             dbname: name,
-            dbdata: data
+            dbdata: data,
+						controls:controls
           });
 
            page = ejs.render(src,
@@ -90,6 +93,9 @@ module.exports = {
 		var src_body = fs.readFileSync(__dirname+'/../views/frame_body.ejs', 'utf8');
 		var name='';
 		var data='';
+		var controls=`<input type="button" class = "button3" onclick="location.href='/create'" value="추가">
+		<input type="button" class = "button3" onclick="update_process()" value="수정">
+		<input type="button" class = "button3" onclick="check_delete()" value="삭제">`;
 		var i=0, j=0, k=0;
 		oracledb.getConnection(dbConfig,
 			function(err, conn)
@@ -125,10 +131,12 @@ module.exports = {
 							}
 						}
 					}
+
 					var first_data = ejs.render(src_body,
 					{
 						dbname: name,
-						dbdata: data
+						dbdata: data,
+						controls:controls
 					});
 					page = ejs.render(src,
 				 {
@@ -140,5 +148,12 @@ module.exports = {
 				 res.end(page);
 				});
 			});
+		},
+		UPDATEPROCESS :function(req, res)
+		{
+			var oracledb = require('oracledb');
+			var dbConfig = require('./../config/dbconfig2.js');
+			var post = req.body;
+
 		}
   }
