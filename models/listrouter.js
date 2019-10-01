@@ -84,7 +84,7 @@ router.post('/delete',function(req, res)
     { });
   }
 
-  res.writeHead(302, {Location: `/`});
+  res.writeHead(302, {Location: `/list`});
   res.end();
 });
   //res.writeHead(200);
