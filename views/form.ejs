@@ -69,7 +69,13 @@
     var l = document.form.components.selectedIndex;
    }
 
+   function formaction(){
+     opener.parent.location.reload(true);
+     opener.dd();
+     window.opener = self;
+     self.close();
 
+   }
 
 
   // -->
@@ -94,8 +100,9 @@
     <option value="피로">피로</option>
     <option value="탈진">탈진</option>
     <option value="게임">게임</option>
+
   </select><br><br>
-  <div><input type="submit" value="전송"> <input type="reset" value="초기화"></div>
+  <div><input type="submit" value="전송" onClick=" formaction()" > <input type="reset" value="초기화"></div>
 </form>
 </fieldset>
 </body>
