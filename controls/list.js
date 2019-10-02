@@ -80,7 +80,7 @@ module.exports = {
         });
 		  });
     },
-		UPDATE :function(req, res)
+	UPDATE :function(req, res)//체크된 DB데이터 수정페이지
 	{
 		var oracledb = require('oracledb');
 		var dbConfig = require('./../config/dbconfig2.js');
@@ -93,87 +93,100 @@ module.exports = {
 		var src_body = fs.readFileSync(__dirname+'/../views/frame_body.ejs', 'utf8');
 		var name='';
 		var data='';
-		var controls=`<input type="button" class = "button3" onclick="location.href='/create'" value="추가">
-		<input type="button" class = "button3" onclick="location.href='/list'" value="목록">
-		<input type="button" class = "button3" onclick="update_process()" value="수정">
-		<input type="button" class = "button3" onclick="check_delete()" value="삭제">`;
-		var i=0, j=0, k=0;
+		var controls='<center><h5>유형</h5></center><table width="90%">';
+		var i=0, j=0, k=0, r=0;
 		oracledb.getConnection(dbConfig,
 			function(err, conn)
 			{
 				conn.execute(`SELECT * FROM test_userinfo`, function (err, result)
 				{
-					for (var i = 0; i < 6; i++)
+					conn.execute(`SELECT LOGICID, LOGICNAME FROM FAULTLOGIC`, function (err, result1)
 					{
-						var a = result.metaData[i].name;
-						name +=
+						for (var i = 0; i < 6; i++)
+						{
+							var a = result.metaData[i].name;
+							name +=
 								`
 										<th>${result.metaData[i].name}</th>
 								`;
-					}
-					if(checked == 1)
-					{
-						for(var j = 0; j < result.rows.length; j++)
-						{
-							if(check == result.rows[j][2])//체크된 항목의 핸드폰번호가 같으면
-							{
-								console.log(check[k]);
-								console.log(result.rows[j][2]);
-								//데이터에 해당번호의 정보 불러오기
-								data += `
-								<tr>
-											<td><input type="text" name="EMP_NO" value="${result.rows[j][0]}"></td>
-											<td><input type="text" name="EMP_NAME" value="${result.rows[j][1]}"></td>
-											<td><input type="text" name="EMP_TEL" value="${result.rows[j][2]}"></td>
-											<td><input type="text" name="AREA" value="${result.rows[j][3]}"></td>
-											<td><input type="text" name="AREA_1" value="${result.rows[j][4]}"></td>
-											<td><input type="text" name="AREA_2" value="${result.rows[j][5]}"></td>
-								</tr>`;
-							}
 						}
-					}
-					else
-					{
-						for(k = 0; k < checked; k++)
+						if(checked == 1)//단일 데이터 수정
 						{
 							for(var j = 0; j < result.rows.length; j++)
 							{
-								if(check[k] == result.rows[j][2])//체크된 항목의 번호가 같으면
+								if(check == result.rows[j][2])//체크된 항목의 핸드폰번호가 같으면
 								{
 									console.log(check[k]);
 									console.log(result.rows[j][2]);
 									//데이터에 해당번호의 정보 불러오기
 									data += `
-									<tr>
-												<td><input type="text" name="EMP_NO" value="${result.rows[j][0]}"></td>
-												<td><input type="text" name="EMP_NAME" value="${result.rows[j][1]}"></td>
-												<td><input type="text" name="EMP_TEL" value="${result.rows[j][2]}"></td>
-												<td><input type="text" name="AREA" value="${result.rows[j][3]}"></td>
-												<td><input type="text" name="AREA_1" value="${result.rows[j][4]}"></td>
-												<td><input type="text" name="AREA_2" value="${result.rows[j][5]}"></td>
-									</tr>`;
+											<tr>
+											<td>${result.rows[j][0]}</td>
+											<td>${result.rows[j][1]}</td>
+											<td>${result.rows[j][2]}</td>
+											<td>${result.rows[j][3]}</td>
+											<td>${result.rows[j][4]}</td>
+											<td>${result.rows[j][5]}</td>
+											</tr>`;
 								}
 							}
 						}
-					}
-					var first_data = ejs.render(src_body,
-					{
-						dbname: name,
-						dbdata: data,
-						controls:controls
+						else//다중 데이터수정
+						{
+							for(k = 0; k < checked; k++)
+							{
+								for(var j = 0; j < result.rows.length; j++)
+								{
+									if(check[k] == result.rows[j][2])//체크된 항목의 번호가 같으면
+									{
+										console.log(check[k]);
+										console.log(result.rows[j][2]);
+										//데이터에 해당번호의 정보 불러오기
+										data += `
+												<tr>
+												<td>${result.rows[j][0]}</td>
+												<td>${result.rows[j][1]}</td>
+												<td>${result.rows[j][2]}</td>
+												<td>${result.rows[j][3]}</td>
+												<td>${result.rows[j][4]}</td>
+												<td>${result.rows[j][5]}</td>
+												</tr>`;
+									}
+								}
+							}
+						}
+						for(r=0; r<result1.rows.length; r++)
+						{
+							if(r%5==0)
+							{
+								controls+=`<tr><td><input type="checkbox" name="check" value="${result1.rows[r][0]}">${result1.rows[r][1]}</td>`;
+							}
+							else
+							{
+								controls+=`<td><input type="checkbox" name="check" value="${result1.rows[r][0]}">${result1.rows[r][1]}</td>`;
+							}
+						}
+						controls+=`</table><div><input type="button" class = "button3" onclick="location.href='/list'" value="목록">
+						<input type="button" class = "button3" onclick="update_process()" value="수정">`;
+						var first_data = ejs.render(src_body,
+						{
+							dbname: name,
+							dbdata: data,
+							controls:controls
+						});
+						page = ejs.render(src,
+				 		{
+					 		frame_top: src_top,
+					 		frame_body: first_data,
+					 		frame_bottom: ''
+				 		});
+				 		res.writeHead(200);
+				 		res.end(page);
 					});
-					page = ejs.render(src,
-				 {
-					 frame_top: src_top,
-					 frame_body: first_data,
-					 frame_bottom: ''
-				 });
-				 res.writeHead(200);
-				 res.end(page);
 				});
 			});
 		},
-		UPDATEPROCESS :function(req, res)
+		UPDATEPROCESS :function(req, res)//DB수정 실행
 		{
 			var oracledb = require('oracledb');
 			var dbConfig = require('./../config/dbconfig2.js');
