@@ -35,15 +35,36 @@
     }
     function update_process()
       {
-        choose=confirm("수정 하시겠습니까?");
-        if(choose)
+        var checkbox = document.getElementsByName("check");
+        console.log(checkbox);
+        var checkboxleng = checkbox.length;
+        var post
+        var checked = 0;
+        var i = 0;
+        for (i=0; i<checkboxleng; i++)
         {
-          document.frm.action = `/update_process`;
-          document.frm.submit();
+          if(checkbox[i].checked == true)
+          {
+            checked +=1;
+          }
+        }
+        document.frm.checked.value=checked;
+        if(checked == 0)
+        {
+          alert("수정할 항목이 체크되지 않았습니다.");
         }
         else
         {
-          return false;
+          choose=confirm("체크한 항목으로 수정하시겠습니까?");
+          if(choose)
+          {
+            document.frm.action = `/update_process`;
+            document.frm.submit();
+          }
+          else
+          {
+            return false;
+          }
         }
       }
     function check_delete()

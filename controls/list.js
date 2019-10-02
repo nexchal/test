@@ -93,7 +93,7 @@ module.exports = {
 		var src_body = fs.readFileSync(__dirname+'/../views/frame_body.ejs', 'utf8');
 		var name='';
 		var data='';
-		var controls='<center><h5>유형</h5></center><table width="90%">';
+		var controls='<center><h5>유형</h5></center><table style=" width:90%; margin: auto;">';
 		var i=0, j=0, k=0, r=0;
 		oracledb.getConnection(dbConfig,
 			function(err, conn)
@@ -116,11 +116,11 @@ module.exports = {
 							{
 								if(check == result.rows[j][2])//체크된 항목의 핸드폰번호가 같으면
 								{
-									console.log(check[k]);
-									console.log(result.rows[j][2]);
+									console.log(result.rows[j][6]);
 									//데이터에 해당번호의 정보 불러오기
 									data += `
 											<tr>
+											<input type="hidden" name="id" value="${result.rows[j][6]}">
 											<td>${result.rows[j][0]}</td>
 											<td>${result.rows[j][1]}</td>
 											<td>${result.rows[j][2]}</td>
@@ -139,11 +139,11 @@ module.exports = {
 								{
 									if(check[k] == result.rows[j][2])//체크된 항목의 번호가 같으면
 									{
-										console.log(check[k]);
-										console.log(result.rows[j][2]);
+										console.log(result.rows[j][6]);
 										//데이터에 해당번호의 정보 불러오기
 										data += `
 												<tr>
+												<input type="hidden" name="id" value="${result.rows[j][6]}">
 												<td>${result.rows[j][0]}</td>
 												<td>${result.rows[j][1]}</td>
 												<td>${result.rows[j][2]}</td>
@@ -167,7 +167,7 @@ module.exports = {
 							}
 						}
 						controls+=`</table><div><input type="button" class = "button3" onclick="location.href='/list'" value="목록">
-						<input type="button" class = "button3" onclick="update_process()" value="수정">`;
+						<input type="button" class = "button3" onclick="update_process()" value="수정"><input type="hidden" name="xchecked" value="${checked}">`;
 						var first_data = ejs.render(src_body,
 						{
 							dbname: name,
@@ -191,6 +191,50 @@ module.exports = {
 			var oracledb = require('oracledb');
 			var dbConfig = require('./../config/dbconfig2.js');
 			var post = req.body;
+			var check = post.check;
+			var checked=post.checked;//checked type count
+			console.log(checked);
+			var xchecked=post.xchecked;//checked user count
+			console.log(xchecked);
+			var id = post.id;
+			var i=0, j=0;
+			var sql='';
+			oracledb.getConnection(dbConfig,
+				function(err, conn)
+			{
+			if(checked == 1 && xchecked == 1)
+			{
+				conn.execute(`insert into TEST_ERR_TYPE values('${check}',sysdate,'${id}')`, function (err, result)
+				{
+					console.log(result);
+				});
+			}
+			else if(checked == 1 && xchecked != 1)
+			{
+				for(i=0; i < xchecked; i++)
+				{
+					conn.execute(`insert into TEST_ERR_TYPE values('${check}',sysdate,'${id[i]}')`, function (err, result)
+					{
+						console.log(result);
+					});
+				}
+			}
+			else
+			{
+				for(i=0; i < xchecked; i++)
+				{
+					for(j=0; j < checked; j++)
+					{
+						conn.execute(`insert into TEST_ERR_TYPE values('${check[j]}',sysdate,'${id[i]}')`, function (err, result)
+						{
+							console.log(result);
+						});
+					}
+				}
+			}
 
+					res.writeHead(302, {Location: `/list`});
+		    	res.end();
+			});
 		}
   }
