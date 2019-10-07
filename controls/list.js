@@ -198,43 +198,80 @@ module.exports = {
 			console.log(xchecked);
 			var id = post.id;
 			var i=0, j=0;
+			var count=0;
 			var sql='';
+			var n=0;
 			oracledb.getConnection(dbConfig,
 				function(err, conn)
 			{
-			if(checked == 1 && xchecked == 1)
-			{
-				conn.execute(`insert into TEST_ERR_TYPE values('${check}',sysdate,'${id}')`, function (err, result)
+				conn.execute(`select * from TEST_ERR_TYPE`, function (err, result1)
 				{
-					console.log(result);
-				});
-			}
-			else if(checked == 1 && xchecked != 1)
-			{
-				for(i=0; i < xchecked; i++)
-				{
-					conn.execute(`insert into TEST_ERR_TYPE values('${check}',sysdate,'${id[i]}')`, function (err, result)
+					if(checked == 1 && xchecked == 1)
 					{
-						console.log(result);
-					});
-				}
-			}
-			else
-			{
-				for(i=0; i < xchecked; i++)
-				{
-					for(j=0; j < checked; j++)
-					{
-						conn.execute(`insert into TEST_ERR_TYPE values('${check[j]}',sysdate,'${id[i]}')`, function (err, result)
+						for(i = 0; i < result1.rows.length; i++)
+						{ n++;
+							if(result1.rows[i][0] == check && result1.rows[i][2] == id)
+							{
+								console.log("중복");
+								count++;
+							}
+						}
+						if(count==0 && n>0)
 						{
-							console.log(result);
-						});
+							conn.execute(`insert into TEST_ERR_TYPE values('${check}',sysdate,'${id}')`, function (err, result)
+							{
+								console.log(result);
+							});
+						}
 					}
-				}
-			}
-
-					res.writeHead(302, {Location: `/list`});
-		    	res.end();
+					else if(checked == 1 && xchecked != 1)
+					{
+						for(i = 0; i < result1.rows.length; i++)
+						{ n++;
+							if(result1.rows[i][0] == check && result1.rows[i][2] == id)
+							{
+								console.log("중복");
+								count++;
+							}
+						}
+						if(count==0&& n>0)
+						{
+							for(i=0; i < xchecked; i++)
+							{
+								conn.execute(`insert into TEST_ERR_TYPE values('${check}',sysdate,'${id[i]}')`, function (err, result)
+								{
+									console.log(result);
+								});
+							}
+						}
+					}
+					else
+					{
+						for(i = 0; i < result1.rows.length; i++)
+						{ n++;
+							if(result1.rows[i][0] == check && result1.rows[i][2] == id)
+							{
+								console.log("중복");
+								count++;
+							}
+						}
+						if(count==0&& n>0)
+						{
+							for(i=0; i < xchecked; i++)
+							{
+								for(j=0; j < checked; j++)
+								{
+									conn.execute(`insert into TEST_ERR_TYPE values('${check[j]}',sysdate,'${id[i]}')`, function (err, result)
+									{
+										console.log(result);
+									});
+								}
+							}
+						}
+					}
+				});
+				res.writeHead(302, {Location: `/list`});
+		   	res.end();
 			});
 		}
   }
