@@ -18,6 +18,7 @@ router.get('/', function(req, res) //index
 
 router.get('/create', function(req, res) //index
 {
+  
   var oracledb = require('oracledb');
   var dbConfig = require('../config/dbconfig2.js');
   var bodyParser = require('body-parser');
@@ -157,7 +158,7 @@ router.post('/create_process', function(req, res) //index
         });
       }
     });
-    res.writeHead(302, {Location: `/`});
+    res.writeHead(302, {Location: `/list`});
     res.end();
 
   });
