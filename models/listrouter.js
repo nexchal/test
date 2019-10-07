@@ -3,6 +3,7 @@ var fs = require('fs');
 var ejs = require('ejs');
 var oracledb = require('oracledb');
 var dbConfig = require('../config/dbconfig2.js');
+
 oracledb.autoCommit = true;
 var router = express.Router();
 var page;
@@ -30,7 +31,8 @@ router.get('/page/:pageId',function(req, res)
     var id = result.rows[0][4];
     var tel = result.rows[0][5];
     var title = result.rows[0][6];
-    conn.execute(`SELECT err_name,TO_CHAR(time,'YY/MM/DD hh:mi') FROM TEST_ERR_TYPE where id = '${id}' order by time asc`, function (err, ertable)
+
+    conn.execute(`SELECT logicname FROM FAULTLOGIC where LOGICID = '${id}'`, function (err, ertable)
     {
       console.log(ertable.rows.length);
       console.log(ertable.rows)
@@ -42,17 +44,6 @@ router.get('/page/:pageId',function(req, res)
     });
   });
 });
-
-router.post('/update',function(req, res)
-{
-  page = require('../controls/list.js');
-  return page.UPDATE(req, res);
-})
-router.post('/update_process',function(req, res)
-{
-  page = require('../controls/list.js');
-  return page.UPDATEPROCESS(req, res);
-})
 
 
 router.post('/save',function(req, res)

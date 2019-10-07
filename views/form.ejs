@@ -3,7 +3,7 @@
 
 </head>
   <body onLoad="initForm(document.form)">
-  <fieldset style = "width:400px;">
+  <fieldset style = "width:500px;">
   <legend> 입력 </legend>
 
   <form action="/create_process" method="post" name = "form">
@@ -81,9 +81,9 @@
   // -->
   </SCRIPT>
 
-  <select name="subject" onchange="change_subject(this.form)"style="width:100px;height:40px;"></select>
-  <select name="contents" onchange="change_contents(this.form)"style="width:100px;height:40px;"></select>
-  <select name="components" onChange="change_compo();"style="width:100px;height:40px;"></select>
+  <select name="subject" onchange="change_subject(this.form)"style="width:150px;height:40px;"></select>
+  <select name="contents" onchange="change_contents(this.form)"style="width:150px;height:40px;"></select>
+  <select name="components" onChange="change_compo();"style="width:150px;height:40px;"></select>
   <br>
   <div> Tel(ex: 010-1234-5678) :</div>
   <input type="tel" id="usertel" name = "tel"
@@ -94,14 +94,8 @@
   <input type="text" name ="emp_no" style =" width:100px;">
 
   <br><br>
-  ERROR
-  <select name="re" style="width:100px;height:40px;">
-    <option value="과식" selected="selected">과식</option>
-    <option value="피로">피로</option>
-    <option value="탈진">탈진</option>
-    <option value="게임">게임</option>
 
-  </select><br><br>
+  <br><br>
   <div><input type="submit" value="전송" onClick=" formaction()" > <input type="reset" value="초기화"></div>
 </form>
 </fieldset>
