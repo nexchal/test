@@ -60,29 +60,7 @@ router.post('/save',function(req, res)
 });
 });
 
-router.post('/delete',function(req, res)
-{
-  var post = req.body;
-  var checked_len = post.checked;
-  var checked_val = post.check;
 
-  var checked_val2 = new Array(" ");
-  checked_val2.push(post.check);
-
-  console.log("[길이]: "+checked_len);
-  console.log("[길이]: "+ checked_len++);
-
-  for(var i = 0; i < checked_len+1; ++i )
-  {
-    conn.execute(`delete from test_userinfo where emp_tel = '${checked_val[i]}' `, function (err, result)
-    { });
-    conn.execute(`delete from test_userinfo where emp_tel = '${checked_val2[i]}' `, function (err, result2)
-    { });
-  }
-
-  res.writeHead(302, {Location: `/list`});
-  res.end();
-});
   //res.writeHead(200);
   //res.write("delete");
 });
