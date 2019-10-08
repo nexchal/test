@@ -21,6 +21,5 @@ oracledb.getConnection(dbConfig,function(err, conn)
     page = require('../controls/list.js');
     return page.UPDATEPROCESS(req, res);
   })
-
 });
 module.exports = router;
