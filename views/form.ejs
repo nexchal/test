@@ -3,10 +3,10 @@
 
 </head>
   <body onLoad="initForm(document.form)">
-  <fieldset style = "width:500px;">
+  <fieldset style = "width:600px;">
   <legend> 입력 </legend>
 
-  <form action="/create_process" method="post" name = "form">
+  <form method="post" name = "form">
 
 
   <script language="javascript">
@@ -73,6 +73,8 @@
      opener.parent.location.reload(true);
      opener.dd();
      window.opener = self;
+     document.form.action = `/create_process`;
+     document.form.submit();
      self.close();
 
    }
@@ -94,9 +96,11 @@
   <input type="text" name ="emp_no" style =" width:100px;">
 
   <br><br>
-
+  <div><table>
+  <%- fault_name  %>
+</table></div>
   <br><br>
-  <div><input type="submit" value="전송" onClick=" formaction()" > <input type="reset" value="초기화"></div>
+  <div><input type="button" value="전송" onClick=" formaction()" > <input type="reset" value="초기화"></div>
 </form>
 </fieldset>
 </body>

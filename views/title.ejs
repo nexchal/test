@@ -29,23 +29,21 @@
 
 고장사유/발생시간: <br>
 <% for( var j = 0 ; j < length; j++) { %>
-  <% for( var i = 0 ; i < 1; i++) { %>
-  <h3> <%= two[j][i] %> </h3> [ <%= two[j][i+1] %> ] <br>
-  <% } %>
+  <h3> <%= two[j] %> </h3><br>
   <% } %>
   <br>
 
 <input type = "hidden" value = '<%- title %>'  name = "title">
 <textarea name = 'tt' style = "display:none;">
-담당자 : <%- name %>
-연락처 : <%- tel %>
-지역 :  <%- area %>&nbsp<%- area1 %>&nbsp<%- area2 %>
-고장사유/발생시간:
+  담당자 : <%- name %>
+  연락처 : <%- tel %>
+  지역 :  <%- area %>&nbsp<%- area1 %>&nbsp<%- area2 %>
+
+  고장사유/발생시간:
   <% for( var j = 0 ; j < length; j++) { %>
-  <% for( var i = 0 ; i < 1; i++) { %>
-  <%= two[j][i] %> [ <%= two[j][i+1] %> ]
-  <% } %>
-  <% } %>
+    <%= two[j] %>
+    <% } %>
+
 </textarea>
 
 <div>
