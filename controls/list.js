@@ -4,6 +4,7 @@ var qs = require('querystring');
 var oracledb=require('oracledb');
 var express=require('express');
 var dbConfig = require('./../config/dbconfig2.js');
+
 module.exports = {
 	HTML:function(req, res){
 
@@ -54,7 +55,7 @@ module.exports = {
                   <td>${list[i][4]}</td>
                   <td>${list[i][5]}</td>
 									<td>${list[i][6]}</td>
-									<td><input type ="checkbox" name="check" value = "${list[i][2]}" > </td>
+									<td><input type ="checkbox" name="check" value = "${list[i][2]}"></td>
             </tr>`;
           }
 
@@ -94,7 +95,9 @@ module.exports = {
 		var post = req.body;
 		var check = post.check;
 		var checked=post.checked;
+
 		console.log(checked);
+
 		var src = fs.readFileSync(__dirname+'/../views/frame_main.ejs', 'utf8');
 		var src_top = fs.readFileSync(__dirname+'/../views/frame_top.ejs', 'utf8');
 		var src_body = fs.readFileSync(__dirname+'/../views/frame_body.ejs', 'utf8');
@@ -197,9 +200,11 @@ module.exports = {
 		{
 			var oracledb = require('oracledb');
 			var dbConfig = require('./../config/dbconfig2.js');
+
 			var post = req.body;
 			var check = post.check;
 			var checked=post.checked;//checked type count
+
 			console.log(checked);
 			var xchecked=post.xchecked;//checked user count
 			console.log(xchecked);

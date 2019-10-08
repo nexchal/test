@@ -7,12 +7,12 @@ var bodyParser= require('body-parser');
 var listrouter = require('./models/listrouter.js');
 var cbrouter = require('./models/cbrouter.js');
 var update_router = require('./models/update.js');
-var delete_router = require('./models/delete.js');
+//var delete_router = require('./models/delete.js');
 var page;
 
 app.set('view engine','ejs'); // ejs사용
 
-app.use('/',delete_router);
+//app.use('/',delete_router);
 app.use('/',update_router);
 app.use('/',cbrouter);
 app.use('/',listrouter);
