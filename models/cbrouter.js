@@ -106,10 +106,11 @@ router.post('/create_process', function(req, res) //index
       }
 
     });
-    res.writeHead(302, {Location: `/list`});
-    res.end();
 
   });
+  page = require('../controls/list.js');
+  return page.HTML(req,res);
+
 });
 
 

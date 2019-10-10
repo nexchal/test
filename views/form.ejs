@@ -64,7 +64,8 @@
    }
 
    function formaction(){
-     self.close();
+     opener.parent.location.reload(true);
+     window.close();
 
    }
 
@@ -95,7 +96,7 @@
 
 </table></div>
   <br><br>
-  <div><input type="submit" value="전송" onClick=" formaction()" > <input type="reset" value="초기화"></div>
+  <div><input type="submit" value="전송" onClick="return formaction()" > <input type="reset" value="초기화"></div>
 </form>
 </fieldset>
 </body>
