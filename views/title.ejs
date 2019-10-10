@@ -13,15 +13,49 @@
         }
 
   </style>
+<script>
+function hide(){
+  var checkbox = document.getElementsByName("check");
+  var checkboxleng = checkbox.length;
+  var post
+  var checked = 0;
+  var i = 0;
+  for (i=0; i<checkboxleng; i++)
+  {
+    if(checkbox[i].checked == true)
+    {
+      checked +=1;
+    }
+  }
+  document.frm.checked.value=checked;
+  if(checked == 0)
+  {
+    alert("삭제할 항목이 체크되지 않았습니다.");
+  }
+  else
+  {
+    choose=confirm("선택한 항목을 삭제하시겠습니까?");
+    if(choose)
+    {
+      document.frm.action = `/delete`;
+      document.frm.submit();
+    }
+    else
+    {
+      return false;
+    }
+  }
+  }
 
+</script>
 </head>
 <body>
 <div class="top"><div style = "background-color: RGB(77,114,222); color: white; height: 100%; border-bottom : 3px solid white;">
 <CENTER> <br><h1><img src = "./../assets/images/gridslogo.png">
 <a href = "/" id = "title"> 지능형 WEB </a></h1></CENTER> </div></div>
 
-<form method = "post" action = "/save">
-
+<form method = "post" name = "frm" action = "/save">
+<input type="hidden" name="checked" value=0>
 
 담당자 : <%- name %><br>
 연락처 : <%- tel %><br>
@@ -29,7 +63,7 @@
 
 고장사유/발생시간: <br>
 <% for( var j = 0 ; j < length; j++) { %>
-  <h3> <%= two[j] %> </h3><br>
+  <h3> <%= two[j] %> </h3> <input type = checkbox  name = "check" value = "<%- two[j] %>"> <br>
   <% } %>
   <br>
 
@@ -49,6 +83,7 @@
 <div>
 <input type = "submit" class = "button" value = "저장하기" onclick="alert('save')">
 <input type = "button" class = "button"  onclick="location.href='/list'" value =  "뒤로가기" >
+<input type = "button" class = "button"  onclick="hide()" value =  "삭제" >
 
 </form>
 </body>
