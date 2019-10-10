@@ -37,6 +37,7 @@ router.post('/create_process', function(req, res) //index
   var area1 = post.subject;
   var area2 = post.contents;
   var area3 = post.components;
+
   console.log(area1);
   console.log(area2);
   console.log(area3);
@@ -46,12 +47,7 @@ router.post('/create_process', function(req, res) //index
   var emp_no = post.emp_no;
 
   var post = req.body;
-  var check = post.check;
-  console.log("check"+ check);
-  console.log("길이"+ check.length);
 
-  console.log("ch1: "+ check[0]);
-  console.log("ch2: "+ check[1]);
 //tmp_seq.NEXTVAL
   oracledb.getConnection(dbConfig,function(err, conn)
   {
@@ -60,8 +56,6 @@ router.post('/create_process', function(req, res) //index
       var count=0;
       var search_tel = [];
       var search_name = [];
-      var check_len = check.length;
-
 
       for(var i = 0;  i < result.rows.length; i++)
       {
@@ -76,8 +70,7 @@ router.post('/create_process', function(req, res) //index
       {
         if(new_tel == search_tel[i] && new_name == search_name[i])
         {
-          count = 100;
-          break;
+          count = 404;
         }
         if(new_tel == search_tel[i] && new_name != search_name[i])
         {
@@ -86,44 +79,32 @@ router.post('/create_process', function(req, res) //index
             alert("중복");
             `;
             console.log("중복된 tel 입니다");
-            count++;
-            break;
+            count = 1;
+        }
+        if(new_tel != search_tel[i] && new_name != search_name[i])
+        {
+            count = "newbie";
         }
       }
-      if(count == 100 )
+
+      if(count == 404)
       {
-        for(var n=0; n<= check.length; n++)
-        {
-        conn.execute(`insert into TEST_ERR_TYPE VALUES ('${check[n]}',sysdate,(SELECT ID FROM TEST_USERINFO WHERE EMP_TEL='${new_tel}'))`,function (err, qq)
-        {
-          console.log(qq);
-        });
-        }
+        console.log("중복데이터" + count);
       }
-      else if(count == 1)
+
+      if(count = "newbie")
       {
-        console.log("else if 도착 후 실행" + count);
-      }
-      else
-      {
-        console.log("신규 유저 삽입중")
+        console.log("신규 유저 삽입중  " + count);
         console.log(emp_no,new_name,new_tel);
         console.log(area1,area2,area3);
 
+        var add_userinfo = require('../controls/insert_userinfo.js');
+        add_userinfo.insert(req,res,emp_no,new_name,new_tel,area1,area2,area3);
 
-        conn.execute(`insert into test_userinfo VALUES ('${emp_no}','${new_name}','${new_tel}','${area1}','${area2}','${area3}',tmp_seq.NEXTVAL)`,function (err, topics)
-        {
-           console.log("유저인포 삽입부"+topics);
-        });
-
-        for(var n=0; n<= check.length; n++)
-        {
-          conn.execute(`insert into TEST_ERR_TYPE VALUES ('${check[n]}',sysdate,(SELECT ID FROM TEST_USERINFO WHERE EMP_TEL='${new_tel}' and EMP_NAME = '${new_name}') )`,function (err, qq)
-          {
-            console.log("에러타입 삽입부"+qq);
-          });
-        }
+        //var ads = require('../controls/insert_fault.js');
+        //ads.insert(req,res,check,new_tel);
       }
+
     });
     res.writeHead(302, {Location: `/list`});
     res.end();

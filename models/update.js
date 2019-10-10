@@ -13,7 +13,6 @@ var page;
 
 oracledb.getConnection(dbConfig,function(err, conn)
 {
-
   router.post('/update',function(req, res)
   {
     page = require('../controls/list.js');

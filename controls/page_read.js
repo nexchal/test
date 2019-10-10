@@ -27,6 +27,7 @@ module.exports = {
             var logic_name_val = logic.rows;
             var logic_name_len = logic.rows.length;
 
+
             res.render('title',
             {
               id: id, name : name, area : area, area1: area1, area2: area2,

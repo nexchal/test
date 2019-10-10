@@ -7,6 +7,8 @@ var bodyParser= require('body-parser');
 var listrouter = require('./models/listrouter.js');
 var cbrouter = require('./models/cbrouter.js');
 var update_router = require('./models/update.js');
+var add_fault = require('./models/add_fault.js');
+
 //var delete_router = require('./models/delete.js');
 var page;
 
@@ -16,6 +18,7 @@ app.set('view engine','ejs'); // ejs사용
 app.use('/',update_router);
 app.use('/',cbrouter);
 app.use('/',listrouter);
+app.use('/',add_fault);
 app.use(express.static('public'));  // 정적파일 사용하기
 
 

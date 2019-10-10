@@ -59,27 +59,10 @@ AREA:function(req, res){
                   console.log("조회 실패");
                   throw err;
                 }
-                var fault_name = '';
-                console.log(result_fault.rows);
-
-                for(r=0; r<result_fault.rows.length; r++)
-    						{
-    							if(r%3==0)
-    							{
-    								fault_name+=`<tr><td><input type="checkbox" name="check" value="${result_fault.rows[r][0]}">${result_fault.rows[r][1]}</td>`;
-    							}
-    							else
-    							{
-    								fault_name+=`<td><input type="checkbox" name="check" value="${result_fault.rows[r][0]}">${result_fault.rows[r][1]}</td>`;
-    							}
-    						}
-
-
-
 
             res.render('form',
             {
-              categorys:category, fault_name : fault_name
+              categorys:category
             });
             }); //st꺼
           }); //168꺼
