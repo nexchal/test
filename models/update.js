@@ -4,9 +4,9 @@ var ejs = require('ejs');
 var oracledb = require('oracledb');
 var dbConfig = require('../config/dbconfig2.js');
 var bodyParser = require('body-parser');
+var qs = require('querystring');
 oracledb.autoCommit = true;
 
-var qs = require('querystring');
 router = express.Router();
 router.use(bodyParser.urlencoded({ extended: false }));
 var page;
@@ -23,9 +23,7 @@ oracledb.getConnection(dbConfig,function(err, conn)
   {
     page = require('../controls/list.js');
     return page.UPDATEPROCESS(req, res);
-  })
-
-
+  });
 
 });
 module.exports = router;
