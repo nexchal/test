@@ -73,10 +73,10 @@
   // -->
   </SCRIPT>
   <body onLoad="initForm(document.form)">
-  <fieldset style = "width:600px;">
+  <fieldset style = "width:480px;">
   <legend> 입력 </legend>
 
-  <form method="post" name = "form" action = "/create_process">
+  <form method="post" name = "form" action = "/create_process" onsubmit="return formaction()">
 
 
   <select name="subject" onchange="change_subject(this.form)"style="width:150px;height:40px;"></select>
@@ -96,7 +96,7 @@
 
 </table></div>
   <br><br>
-  <div><input type="submit" value="전송" onClick="return formaction()" > <input type="reset" value="초기화"></div>
+  <div><input type="submit" value="전송"> <input type="reset" value="초기화"></div>
 </form>
 </fieldset>
 </body>
