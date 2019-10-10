@@ -12,6 +12,7 @@ AREA:function(req, res){
   addCategory(category[0], "", "");`;
 
   var db = require(__root+'/models/select_id.js');
+
   db.info(5009999,
     function(err, result)
     {
@@ -39,7 +40,7 @@ AREA:function(req, res){
 
             db.info_stname(5009997,function(err, result_stname)
             {
-              console.log(result_stname);
+
               if(err)
               {
                 console.log("조회 실패");
@@ -49,12 +50,40 @@ AREA:function(req, res){
               {
               category+=`addCategory(category[1][0], "${result_stname.rows[i]}", "${result_stname.rows[i]}");`;
               }
+
+              var db2 = require(__root+'/models/fault_list.js');
+              db2.fault(5009996,function(err, result_fault)
+              {
+                if(err)
+                {
+                  console.log("조회 실패");
+                  throw err;
+                }
+                var fault_name = '';
+                console.log(result_fault.rows);
+
+                for(r=0; r<result_fault.rows.length; r++)
+    						{
+    							if(r%3==0)
+    							{
+    								fault_name+=`<tr><td><input type="checkbox" name="check" value="${result_fault.rows[r][0]}">${result_fault.rows[r][1]}</td>`;
+    							}
+    							else
+    							{
+    								fault_name+=`<td><input type="checkbox" name="check" value="${result_fault.rows[r][0]}">${result_fault.rows[r][1]}</td>`;
+    							}
+    						}
+
+
+
+
             res.render('form',
             {
-              categorys:category
+              categorys:category, fault_name : fault_name
             });
             }); //st꺼
           }); //168꺼
-        });
+        }); //fault_list꺼
+      });
     }
   }
