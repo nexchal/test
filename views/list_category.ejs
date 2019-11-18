@@ -1,0 +1,62 @@
+<script language="javascript">
+
+ function Category(value, text) {
+  this.value = value;
+  this.text = text;
+  this.length = 0;
+ }
+
+ function addCategory(category, value, text) {
+  category[category.length] = new Category(value, text);
+  category.length++;
+ }
+
+ var category = new Category();
+
+ <%- categorys %>
+
+ function initForm(frm) {
+  frm.subject.length = category.length;
+
+  for (i = 0; i < category.length; i++){
+   frm.subject[i].value = category[i].value;
+   frm.subject[i].text = category[i].text;
+   frm.subject.selectedIndex = 0;
+   frm.contents.selectedIndex = 0;
+  }
+
+  change_area(frm);
+ }
+
+ function area(frm) {
+  var i = frm.subject.selectedIndex;
+  frm.contents.length = category[i].length;
+
+  for (j = 0; j < frm.contents.length; j++){
+   frm.contents[j].value = category[i][j].value;
+   frm.contents[j].text = category[i][j].text;
+   frm.contents.selectedIndex = 0;
+  }
+  change_reason(frm);
+ }
+
+ function change_reason(frm) {
+  var i = frm.subject.selectedIndex;
+  var j = frm.contents.selectedIndex;
+
+  frm.components.length = category[i][j].length;
+
+  for (k = 0; k < frm.components.length; k++){
+   frm.components[k].value = category[i][j][k].value;
+   frm.components[k].text = category[i][j][k].text;
+   frm.components.selectedIndex = 0;
+  }
+ }
+
+ function change_station(){
+  var l = document.frm.components.selectedIndex;
+ }
+</script>
+<select name="subject" onchange="change_subject(this.frm)"style="width:150px;height:40px;"></select>
+<select name="contents" onchange="change_contents(this.form)"style="width:150px;height:40px;"></select>
+<select name="components" onChange="change_compo();"style="width:150px;height:40px;"></select>

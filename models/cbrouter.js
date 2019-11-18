@@ -11,11 +11,6 @@ router = express.Router();
 router.use(bodyParser.urlencoded({ extended: false }));
 var page;
 
-router.get('/', function(req, res) //index
-{
-  return res.render('main');
-});
-
 router.get('/create', function(req, res) //index
 {
 

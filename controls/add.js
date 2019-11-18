@@ -59,14 +59,12 @@ AREA:function(req, res){
                   console.log("조회 실패");
                   throw err;
                 }
-
-            res.render('form',
-            {
-              categorys:category
-            });
-            }); //st꺼
-          }); //168꺼
-        }); //fault_list꺼
+                res.render('form',{
+                  categorys:category
+                });
+            }); //st
+          }); //168
+        }); //fault_list
       });
     }
   }

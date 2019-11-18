@@ -15,18 +15,9 @@ module.exports = {
 			var src_top = fs.readFileSync(__dirname+'/../views/frame_top.ejs', 'utf8');
 			var src_body = fs.readFileSync(__dirname+'/../views/frame_body.ejs', 'utf8');
       var src_bottom = fs.readFileSync(__dirname+'/../views/frame_bottom.ejs', 'utf8');
-      var list;
+			var controls=fs.readFileSync(__dirname+'/../views/list_control.ejs','utf8');
+			var list;
       var page;
-			var controls=`
-			<script>
-			function dd() {
-				alert("함수동작");
-				window.location.reload(true);
-			}
-			</script>
-			<input type="button" class = "button3" onclick="showPopup()" value="추가">
-			<input type="button" class = "button3" onclick="check_update()" value="수정">
-			<input type="button" class = "button3" onclick="check_delete()" value="삭제">`;
       var data='';
       oracledb.getConnection(dbConfig,
   		  function(err, conn)
@@ -246,11 +237,11 @@ module.exports = {
 								count++;
 							}
 						}
-						if(count==0&& n>0)
+						if(count==0)
 						{
 							for(i=0; i < xchecked; i++)
 							{
-								conn.execute(`insert into TEST_ERR_TYPE values('${check}',sysdate,'${id[i]}')`, function (err, result)
+								conn.execute(`insert into TEST_ERR_TYPE values('${check}','${id[i]}')`, function (err, result)
 								{
 									console.log(result);
 								});
@@ -267,13 +258,13 @@ module.exports = {
 								count++;
 							}
 						}
-						if(count==0&& n>0)
+						if(count==0)
 						{
 							for(i=0; i < xchecked; i++)
 							{
 								for(j=0; j < checked; j++)
 								{
-									conn.execute(`insert into TEST_ERR_TYPE values('${check[j]}',sysdate,'${id[i]}')`, function (err, result)
+									conn.execute(`insert into TEST_ERR_TYPE values('${check[j]}',sysdate,'${id}')`, function (err, result)
 									{
 										console.log(result);
 									});
@@ -282,7 +273,7 @@ module.exports = {
 						}
 					}
 				});
-				res.writeHead(302, {Location: `/list`});
+				res.writeHead(302, {Location: `/`});
 		   	res.end();
 			});
 		}

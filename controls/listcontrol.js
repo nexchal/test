@@ -4,7 +4,6 @@ var ejs = require('ejs');
 var oracledb = require('oracledb');
 var dbConfig = require('../config/dbconfig2.js');
 var bodyParser = require('body-parser');
-
 oracledb.autoCommit = true;
 var router = express.Router();
 var page;
@@ -16,33 +15,14 @@ oracledb.getConnection(dbConfig,function(err, conn)
 {
 
 
-router.get('/',function(req, res) //index
+router.get('/',function(req, res) //메인 페이지 유저 리스트 출력
 {
-  page = require('../controls/list.js');
-  return page.HTML(req,res);
-});
+  page = require('../models/userinfo.js');
+  return page.alluser(req,res);
 
-router.get('/page/:pageId',function(req, res)
-{
-  var title = req.params.pageId;
-  page = require('../controls/page_read.js');
-  return page.HTML(req,res,title);
 });
 
 
-router.post('/save',function(req, res)
-{
-  var post = req.body;
-  var description = post.tt;
-  var title = post.title;
-  fs.writeFile('public/assets/data/' + title,description,(err) => {
-    if(err) {
-      console.log('err');
-    }
-    res.writeHead(302, {Location: `/list`});
-    res.end();
-  });
-});
 router.post('/delete',function(req, res)
 {
   var post = req.body;

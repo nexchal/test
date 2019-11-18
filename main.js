@@ -4,7 +4,7 @@ var fs = require('fs');
 var ejs = require('ejs');
 var bodyParser= require('body-parser');
 
-var listrouter = require('./models/listrouter.js');
+var listcontrol = require('./models/listrouter.js');
 var cbrouter = require('./models/cbrouter.js');
 var update_router = require('./models/update.js');
 var add_fault = require('./models/add_fault.js');
@@ -17,7 +17,7 @@ app.set('view engine','ejs'); // ejs사용
 //app.use('/',delete_router);
 app.use('/',update_router);
 app.use('/',cbrouter);
-app.use('/',listrouter);
+app.use('/',listcontrol);
 app.use('/',add_fault);
 app.use(express.static('public'));  // 정적파일 사용하기
 
