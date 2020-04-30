@@ -19,7 +19,7 @@
     "ejs": "^2.6.2",
     "express": "^4.17.1",
     "express-generator": "^4.16.1",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "oracledb": "^4.0.1",
     "request": "^2.88.0"
   }
